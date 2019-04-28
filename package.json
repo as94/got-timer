@@ -1,0 +1,20 @@
+{
+  "name": "got-timer",
+  "version": "1.0.0",
+  "description": "Pomodoro timer for got team",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/as94/got-timer",
+  "keywords": [
+    "electron",
+    "got",
+    "pomodoro"
+  ],
+  "author": "as94",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^5.0.0"
+  }
+}
