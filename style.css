@@ -1,0 +1,27 @@
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-image: url('images/throne.jpg');
+    background-size: cover;
+}
+
+.timer-box {  
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    line-height: 1em;
+    font-size: 600%;
+    font-weight: 900;
+    color: #ffede5;
+    border: none;
+}
+
+.navigation {
+    cursor: pointer;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    width: 7%;
+    vertical-align: text-top;
+}

@@ -3,13 +3,21 @@
   <head>
     <meta charset="UTF-8">
     <title>Game Of Threads Timer</title>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+
   </head>
   <body>
-    <h1>Game Of Threads Timer</h1>
-    
+    <div class="timer-box">
+      <div id="timerText">00:00</div>
+      <div>
+        <img class="navigation" id="restartButton" src="images/Reset Button.svg" type="submit" alt="reset button" />
+        <img class="navigation" id="playButton" src="images/Play Button.svg" type="submit" alt="play button" />
+        <img class="navigation" id="stopButton" src="images/Stop Button.svg" type="submit" alt="stop button" />
+      </div>
+    </div>
     <script>
       // You can also require other files to run in this process
-      require('./renderer.js')
+      require('./index.js')
     </script>
   </body>
 </html>
