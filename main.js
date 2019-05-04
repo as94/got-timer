@@ -17,16 +17,15 @@ function createWindow () {
   mainWindow.loadFile('index.html');
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools();
 
   mainWindow.on('closed', function () {
     mainWindow = null
   })
 
   mainWindow.webContents.on('did-finish-load', () => {
-    // Send the timer value
-    mainWindow.webContents.send('timer-change', 60);
-});
+    mainWindow.webContents.send('timer-start');
+  });
 }
 
 app.on('ready', createWindow)

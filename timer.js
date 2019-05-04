@@ -3,10 +3,31 @@ const moment = require('moment');
 class Timer {
     constructor(seconds) {
         this.seconds = seconds;
+        this.isStarted = false;
+        this.isPaused = false;
     }
 
     tick() {
+        this.isStarted = true;
         this.seconds--;
+    }
+
+    pause() {
+        this.isStarted = false;
+        this.isPaused = true;
+    }
+
+    continue() {
+        this.isStarted = true;
+        this.isPaused = false;
+    }
+
+    started() {
+        return this.isStarted;
+    }
+
+    paused() {
+        return this.isPaused;
     }
 
     finished() {
