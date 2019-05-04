@@ -5,7 +5,7 @@ let mainWindow
 function createWindow () {
   mainWindow = new BrowserWindow({
     width: 1024,
-    height: 648,
+    height: 681,
     resizable: false,
     webPreferences: {
       nodeIntegration: true
@@ -17,7 +17,7 @@ function createWindow () {
   mainWindow.loadFile('index.html');
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   mainWindow.on('closed', function () {
     mainWindow = null
