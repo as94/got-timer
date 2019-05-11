@@ -12,18 +12,39 @@ ipcRenderer.on('timer-start', () => {
     initializeTimer();
 });
 
-document.getElementById('playButton').addEventListener('click', function () {
+var playButton = document.getElementById('playButton');
+playButton.addEventListener('click', function () {
     playTimer();
+    playButton.classList.toggle("animated");
+    playButton.classList.toggle("tada");
+});
+playButton.addEventListener('mouseleave', function () {
+    playButton.classList.toggle("animated");
+    playButton.classList.toggle("tada");
 });
 
-document.getElementById('restartButton').addEventListener('click', function () {
+var restartButton = document.getElementById('restartButton');
+restartButton.addEventListener('click', function () {
     resetTimers();
+    restartButton.classList.toggle("animated");
+    restartButton.classList.toggle("tada");
+});
+restartButton.addEventListener('mouseleave', function () {
+    restartButton.classList.toggle("animated");
+    restartButton.classList.toggle("tada");
 });
 
-document.getElementById('pauseButton').addEventListener('click', function () {
+var pauseButton = document.getElementById('pauseButton');
+pauseButton.addEventListener('click', function () {
     if (timer.started()){
         timer.pause();
     }
+    pauseButton.classList.toggle("animated");
+    pauseButton.classList.toggle("tada");
+});
+pauseButton.addEventListener('mouseleave', function () {
+    pauseButton.classList.toggle("animated");
+    pauseButton.classList.toggle("tada");
 });
 
 function playTimer() {
