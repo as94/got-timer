@@ -94,8 +94,4 @@ function bindAnimation(button) {
         button.classList.toggle("animated");
         button.classList.toggle("tada");
     });
-    button.addEventListener('mouseleave', function () {
-        button.classList.toggle("animated");
-        button.classList.toggle("tada");
-    });
 }
