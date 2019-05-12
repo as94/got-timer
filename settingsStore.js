@@ -4,9 +4,11 @@ const fs = require('fs');
 
 class SettingsStore {
     constructor(props) {
+        this.configName = props.configName;
+        this.defaults = props.defaults;
+
         const userDataPath = (electron.app || electron.remote.app).getPath('userData');
         this.path = path.join(userDataPath, props.configName + '.json');
-        console.log(this.path);
         this.data = parseDataFile(this.path, props.defaults);
     }
 

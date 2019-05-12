@@ -2,16 +2,7 @@ const { ipcRenderer } = require('electron');
 const Timer = require('./timer.js');
 const SettingsStore = require('./settingsStore');
 
-let defaultTimeInSeconds = 0.1 * 60;
-
-const settings = new SettingsStore({
-    configName: 'user-preferences',
-    defaults: {
-        timeInSeconds: defaultTimeInSeconds,
-        isRepeat: false
-    }
-});
-
+let settings;
 let timeInSeconds;
 let isRepeat;
 
@@ -19,7 +10,12 @@ let timer;
 let intervalTimer;
 let audio = new Audio('./sounds/short.mp3');
 
-ipcRenderer.on('timer-start', () => {
+ipcRenderer.on('timer-start', (event, timerSettings) => {
+    settings = new SettingsStore({
+        configName: timerSettings.configName,
+        defaults: timerSettings.defaults
+    });
+
     initializeTimer();
 });
 
@@ -41,14 +37,6 @@ pauseButton.addEventListener('click', function () {
     if (timer.started()) {
         timer.pause();
     }
-});
-
-document.getElementById('repeatTimer').addEventListener('click', function () {
-    var repeat = settings.get('isRepeat');
-    settings.set('isRepeat', !repeat);
-
-    // TODO: remove
-    settings.set('timeInSeconds', defaultTimeInSeconds);
 });
 
 function playTimer() {
@@ -78,6 +66,11 @@ function playTimer() {
 }
 
 function initializeTimer() {
+    settings = new SettingsStore({
+        configName: settings.configName,
+        defaults: settings.defaults
+    });
+
     timeInSeconds = settings.get('timeInSeconds');
     isRepeat = settings.get('isRepeat');
 
