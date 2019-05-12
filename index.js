@@ -1,50 +1,54 @@
-const {ipcRenderer} = require('electron');
+const { ipcRenderer } = require('electron');
 const Timer = require('./timer.js');
+const SettingsStore = require('./settingsStore');
 
-const timeInMinutes = 0.1;
-const timeInSeconds = timeInMinutes * 60;
+let defaultTimeInSeconds = 0.1 * 60;
+
+const settings = new SettingsStore({
+    configName: 'user-preferences',
+    defaults: {
+        timeInSeconds: defaultTimeInSeconds,
+        isRepeat: false
+    }
+});
+
+let timeInSeconds;
+let isRepeat;
 
 let timer;
 let intervalTimer;
-let audio = new Audio(__dirname + '/sounds/short.mp3');
+let audio = new Audio('./sounds/short.mp3');
 
 ipcRenderer.on('timer-start', () => {
     initializeTimer();
 });
 
 var playButton = document.getElementById('playButton');
+bindAnimation(playButton);
 playButton.addEventListener('click', function () {
     playTimer();
-    playButton.classList.toggle("animated");
-    playButton.classList.toggle("tada");
-});
-playButton.addEventListener('mouseleave', function () {
-    playButton.classList.toggle("animated");
-    playButton.classList.toggle("tada");
 });
 
 var restartButton = document.getElementById('restartButton');
+bindAnimation(restartButton);
 restartButton.addEventListener('click', function () {
     resetTimers();
-    restartButton.classList.toggle("animated");
-    restartButton.classList.toggle("tada");
-});
-restartButton.addEventListener('mouseleave', function () {
-    restartButton.classList.toggle("animated");
-    restartButton.classList.toggle("tada");
 });
 
 var pauseButton = document.getElementById('pauseButton');
+bindAnimation(pauseButton);
 pauseButton.addEventListener('click', function () {
-    if (timer.started()){
+    if (timer.started()) {
         timer.pause();
     }
-    pauseButton.classList.toggle("animated");
-    pauseButton.classList.toggle("tada");
 });
-pauseButton.addEventListener('mouseleave', function () {
-    pauseButton.classList.toggle("animated");
-    pauseButton.classList.toggle("tada");
+
+document.getElementById('repeatTimer').addEventListener('click', function () {
+    var repeat = settings.get('isRepeat');
+    settings.set('isRepeat', !repeat);
+
+    // TODO: remove
+    settings.set('timeInSeconds', defaultTimeInSeconds);
 });
 
 function playTimer() {
@@ -57,10 +61,14 @@ function playTimer() {
             if (!timer.paused()) {
                 timer.tick();
                 timerText.innerHTML = timer.toString();
-                
+
                 if (timer.finished()) {
                     resetTimers();
                     playSound();
+
+                    if (isRepeat) {
+                        playTimer();
+                    }
                 }
             }
         }, 1000);
@@ -70,6 +78,9 @@ function playTimer() {
 }
 
 function initializeTimer() {
+    timeInSeconds = settings.get('timeInSeconds');
+    isRepeat = settings.get('isRepeat');
+
     timer = new Timer(timeInSeconds);
     timerText.innerHTML = timer.toString();
 }
@@ -83,4 +94,15 @@ function resetTimers() {
 function playSound() {
     audio.currentTime = 0;
     audio.play();
+}
+
+function bindAnimation(button) {
+    button.addEventListener('click', function () {
+        button.classList.toggle("animated");
+        button.classList.toggle("tada");
+    });
+    button.addEventListener('mouseleave', function () {
+        button.classList.toggle("animated");
+        button.classList.toggle("tada");
+    });
 }
