@@ -3,6 +3,7 @@ const Timer = require('./timer.js');
 const SettingsStore = require('./settingsStore');
 
 let settings;
+
 let timeInSeconds;
 let isRepeat;
 
@@ -10,10 +11,13 @@ let timer;
 let intervalTimer;
 let audio = new Audio('./sounds/short.mp3');
 
-ipcRenderer.on('timer-start', (event, timerSettings) => {
+ipcRenderer.on('timer-start', () => {
     settings = new SettingsStore({
-        configName: timerSettings.configName,
-        defaults: timerSettings.defaults
+        configName: 'user-preferences',
+        defaults: {
+            timeInSeconds: 15 * 60,
+            isRepeat: true
+        }
     });
 
     initializeTimer();

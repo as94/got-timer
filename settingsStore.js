@@ -19,16 +19,21 @@ class SettingsStore {
     set(key, value) {
         this.data[key] = value;
         var settings = JSON.stringify(this.data);
-
         fs.writeFileSync(this.path, settings);
     }
 }
 
 function parseDataFile(filePath, defaults) {
     try {
+        if (!fs.existsSync(filePath)) {
+            var defaultSettings = JSON.stringify(defaults);
+            fs.writeFileSync(filePath, defaultSettings);
+        }
+
         var settings = fs.readFileSync(filePath);
         return JSON.parse(settings);
     } catch (error) {
+        console.log(error);
         return defaults;
     }
 }

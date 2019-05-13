@@ -1,15 +1,4 @@
 const {app, BrowserWindow} = require('electron');
-const SettingsStore = require('./settingsStore');
-
-let defaultTimeInSeconds = 0.1 * 60;
-
-const settings = new SettingsStore({
-    configName: 'user-preferences',
-    defaults: {
-        timeInSeconds: defaultTimeInSeconds,
-        isRepeat: false
-    }
-});
 
 let mainWindow;
 
@@ -35,7 +24,7 @@ function createWindow () {
   })
 
   mainWindow.webContents.on('did-finish-load', () => {
-    mainWindow.webContents.send('timer-start', settings);
+    mainWindow.webContents.send('timer-start');
   });
 }
 
