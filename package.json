@@ -4,7 +4,8 @@
   "description": "Pomodoro timer for got team",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=Game-Of-Thrones-Stark.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . got-timer --overwrite --asar=true --platform=win32 --arch=ia32 --icon=Game-Of-Thrones-Stark.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Got Timer\""
   },
   "repository": "https://github.com/as94/got-timer",
   "keywords": [
@@ -14,9 +15,7 @@
   ],
   "author": "as94",
   "license": "CC0-1.0",
-  "devDependencies": {
-    "electron-packager": "^13.1.1"
-  },
+  "devDependencies": {},
   "dependencies": {
     "electron": "^5.0.2",
     "moment": "^2.24.0"
